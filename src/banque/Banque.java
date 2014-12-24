@@ -12,11 +12,13 @@ public class Banque {
 	}
 	
 	public void depotDe(String username, double montant){
+		solde = map.get(username);
 		solde += montant;
 		map.put(username, solde);
 	}
 	
 	public boolean retraitDe(String username, double montant){
+		solde = map.get(username);
 		if(solde - montant < 0)
 			return false;
 		else {
