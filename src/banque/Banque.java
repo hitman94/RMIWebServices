@@ -1,7 +1,11 @@
 package banque;
 
 import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * Banque.java
+ * @author Thomas
+ *
+ */
 public class Banque {
 	private Double solde;
 	private ConcurrentHashMap<String, Double> map;
