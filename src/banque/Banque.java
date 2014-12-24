@@ -7,22 +7,20 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 public class Banque {
-	private Double solde;
 	private ConcurrentHashMap<String, Double> map;
 
 	public Banque(){
-		this.solde = 0.0;
 		this.map = new ConcurrentHashMap<>();
 	}
 	
 	public void depotDe(String username, double montant){
-		solde = map.get(username);
+		double solde = map.get(username);
 		solde += montant;
 		map.put(username, solde);
 	}
 	
 	public boolean retraitDe(String username, double montant){
-		solde = map.get(username);
+		double solde = map.get(username);
 		if(solde - montant < 0)
 			return false;
 		else {
