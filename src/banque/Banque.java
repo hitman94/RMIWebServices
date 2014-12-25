@@ -14,13 +14,17 @@ public class Banque {
 	}
 	
 	public void depotDe(String username, double montant){
-		double solde = map.get(username);
+		Double solde = map.get(username);
+		if(solde==null)
+			return;
 		solde += montant;
 		map.put(username, solde);
 	}
 	
 	public boolean retraitDe(String username, double montant){
-		double solde = map.get(username);
+		Double solde = map.get(username);
+		if(solde==null)
+			return false;
 		if(solde - montant < 0)
 			return false;
 		else {
@@ -30,7 +34,20 @@ public class Banque {
 		}
 	}
 	
-	public double valeurDuSolde(String username){
-		return map.get(username);
+	public Double valeurDuSolde(String username){
+		
+		Double solde = map.get(username);
+		if(solde==null)
+			return 0.0;
+		
+		return solde;
+	}
+	
+	public boolean addUser(String username) {
+		if(map.get(username)==null) {
+			map.put(username, 0.0);
+			return true;
+		}
+		return false;
 	}
 }
