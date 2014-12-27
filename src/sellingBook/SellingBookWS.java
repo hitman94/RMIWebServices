@@ -54,9 +54,7 @@ public class SellingBookWS {
 		return (Book[]) books.toArray();
 	}
 	
-	public void addBook(Book book) throws RemoteException {
-		 lib.addBook(book);
-	}
+
 	public void addBook(Long isbn,String title,String authour,Double price) throws RemoteException {
 		lib.addBook(isbn, title, authour, price);
 	}
