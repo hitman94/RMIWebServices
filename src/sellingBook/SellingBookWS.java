@@ -36,10 +36,10 @@ public class SellingBookWS {
 	}
 	
 	
-	public Book getBook(Long ISBN) throws RemoteException{
+	public Book getBookByISBN(Long ISBN) throws RemoteException{
 		return (Book) lib.getBook(ISBN);
 	}
-	public Book getBook(String title) throws RemoteException{
+	public Book getBookByTitle(String title) throws RemoteException{
 		return (Book) lib.getBook(title);
 	}
 	
