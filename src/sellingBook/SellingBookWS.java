@@ -18,15 +18,57 @@ import sellingBook.interfaceRMI.ILibraries;
 public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
-		//lib = ServerLibraries.getInstance();
+		lib = ServerLibraries.getInstance();
 	}
-
+	
+	
+	// Methode de test à la con
 	public void test() throws NumberFormatException, RemoteException{
 		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
 		IBook b = lib.getBook(new Long("14254414"));
 		System.out.println(b.getAuthor());
 	}
 
+	public Book[] getBooksThatContain(String title) throws RemoteException{
+		List<IBook> books;
+		books = lib.getBooksThatContain(title);
+		return (Book[]) books.toArray();
+	}
+	
+	
+	public Book getBook(Long ISBN) throws RemoteException{
+		return (Book) lib.getBook(ISBN);
+	}
+	public Book getBook(String title) throws RemoteException{
+		return (Book) lib.getBook(title);
+	}
+	
+	public Book removeBook(Long ISBN) throws RemoteException {
+		return (Book) lib.removeBook(ISBN);
+	}
+	
+	
+	public Book[] getBooksByAuthor(String author) throws RemoteException{
+		List<IBook> books;
+		books = lib.getBooksByAuthor(author);
+		return (Book[]) books.toArray();
+	}
+	
+	public void addBook(Book book) throws RemoteException {
+		 lib.addBook(book);
+	}
+	public void addBook(Long isbn,String title,String authour,Double price) throws RemoteException {
+		lib.addBook(isbn, title, authour, price);
+	}
+	
+	
+	public Book[] getAllBooks() throws RemoteException {
+		List<IBook> books;
+		books = lib.getAllBooks();
+		return (Book[]) books.toArray();
+		
+	}
+	
 	public void serialize(String username, Book[] basket) {
 
 		ObjectOutputStream oos = null;

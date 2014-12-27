@@ -1,6 +1,8 @@
 package sellingBook;
 
-public class Book{
+import sellingBook.interfaceRMI.IBook;
+
+public class Book implements IBook{
 
 	private String title;
 	private String author;
