@@ -11,6 +11,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.net.httpserver.HttpContext;
+
 import sellingBook.interfaceRMI.IBook;
 import sellingBook.interfaceRMI.ILibraries;
 
@@ -19,14 +21,16 @@ public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
 		lib = ServerLibraries.getInstance();
+		System.out.println("test!!!!!");
 	}
 	
 	
 	// Methode de test à la con
 	public void test() throws NumberFormatException, RemoteException{
-		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
-		IBook b = lib.getBook(new Long("14254414"));
-		System.out.println(b.getAuthor());
+//		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
+//		IBook b = lib.getBook(new Long("14254414"));
+//		System.out.println(b.getAuthor());
+		
 	}
 
 	public Book[] getBooksThatContain(String title) throws RemoteException{
