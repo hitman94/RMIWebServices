@@ -16,21 +16,21 @@ import sellingBook.interfaceRMI.ILibraries;
 
 
 public class SellingBookWS {
-private ILibraries lib;
+	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
-		lib = ServerLibraries.getInstance();
+		//lib = ServerLibraries.getInstance();
 	}
-	
+
 	public void test() throws NumberFormatException, RemoteException{
 		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
 		IBook b = lib.getBook(new Long("14254414"));
 		System.out.println(b.getAuthor());
 	}
-	
-public static void serialize(String username, IBook[] basket) {
-		
+
+	public void serialize(String username, Book[] basket) {
+
 		ObjectOutputStream oos = null;
-		
+
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
 		try {
@@ -54,17 +54,17 @@ public static void serialize(String username, IBook[] basket) {
 			}
 		}
 	}
-	
-	public static IBook[] unserialize(String username) {
+
+	public Book[] unserialize(String username) {
 
 		ObjectInputStream ois = null;
-		List<IBook> basket = new ArrayList<IBook>();
+		List<Book> basket = new ArrayList<Book>();
 
 		try {
 			final FileInputStream fichier = new FileInputStream(
 					"users" + System.getProperty("file.separator") + username);
 			ois = new ObjectInputStream(fichier);
-			basket = (List<IBook>) ois.readObject();
+			basket = (List<Book>) ois.readObject();
 		} catch (final IOException e) {
 			e.printStackTrace();
 		} catch (final ClassNotFoundException e) {
@@ -78,7 +78,7 @@ public static void serialize(String username, IBook[] basket) {
 				ex.printStackTrace();
 			}
 		}
-		return (IBook[]) basket.toArray();
+		return (Book[]) basket.toArray();
 	}
 }
 
