@@ -21,11 +21,11 @@ public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
 		lib = ServerLibraries.getInstance();
-		System.out.println("test!!!!!");
+
 	}
 	
 	
-	// Methode de test à la con
+	// Methode de test très utile
 	public void test() throws NumberFormatException, RemoteException{
 //		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
 //		IBook b = lib.getBook(new Long("14254414"));

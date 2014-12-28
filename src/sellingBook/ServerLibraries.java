@@ -19,8 +19,6 @@ public class ServerLibraries {
 				System.setSecurityManager(new RMISecurityManager());
 			}
 			System.setProperty("java.rmi.server.codebase", "http://localhost:8080/RMIWebServices/bin/");
-			
-			//System.setProperty("java.security.policy","sec.policy");
 			System.setProperty("java.rmi.server.useCodebaseOnly ", "false");
 			try {
 				
@@ -30,7 +28,7 @@ public class ServerLibraries {
 				System.out.println("Malformed url");
 				e1.printStackTrace();
 			} catch (RemoteException e1) {
-				System.out.println("Remote exeption sur le lookup et va te fair mettre au passage");
+				System.out.println("Remote exeption sur le lookup");
 				e1.printStackTrace();
 			} catch (NotBoundException e1) {
 				System.out.println("Not bound exeption");
