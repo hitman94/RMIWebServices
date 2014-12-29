@@ -18,7 +18,7 @@ public class ServerLibraries {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
-			System.setProperty("java.rmi.server.codebase", "http://localhost:8080/RMIWebServices/bin/");
+			System.setProperty("java.rmi.server.codebase", "http://localhost:8080/WebServicesProjectRMI/bin/");
 			System.setProperty("java.rmi.server.useCodebaseOnly ", "false");
 			try {
 				

@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.corba.se.impl.io.OptionalDataException;
 import com.sun.net.httpserver.HttpContext;
 
 import sellingBook.interfaceRMI.IBook;
@@ -25,11 +28,11 @@ public class SellingBookWS {
 	}
 	
 	
-	// Methode de test très utile
+	// Methode de test trï¿½s utile
 	public void test() throws NumberFormatException, RemoteException{
-//		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
-//		IBook b = lib.getBook(new Long("14254414"));
-//		System.out.println(b.getAuthor());
+		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
+		IBook b = lib.getBook(new Long("14254414"));
+		System.out.println(b.getAuthor());
 		
 	}
 
@@ -67,34 +70,44 @@ public class SellingBookWS {
 	public Book[] getAllBooks() throws RemoteException {
 		List<IBook> books;
 		books = lib.getAllBooks();
-		return (Book[]) books.toArray();
+		
+		List<Book> lBook = new ArrayList<Book>();
+		for(IBook b:books)
+			lBook.add(new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle()));
+		
+		Book[] toReturn = new Book[lBook.size()];
+		
+		return lBook.toArray(toReturn);
 		
 	}
 	
 	public void serialize(String username, Book[] basket) {
 
 		ObjectOutputStream oos = null;
-
+		FileOutputStream fichier = null;
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
+		for(Book b:basket)
+			System.out.println(b.getTitle());
 		try {
 			File dirUsers = new File("users");
 			dirUsers.mkdir();
-			final FileOutputStream fichier = new FileOutputStream(
+			fichier = new FileOutputStream(
 					dirUsers + System.getProperty("file.separator") + username);
 			oos = new ObjectOutputStream(fichier);
 			oos.writeObject(basket);
 			oos.flush();
 		} catch (final IOException e) {
-			e.printStackTrace();
+			return ;
 		} finally {
 			try {
+				if(fichier!=null)
+					fichier.close();
 				if (oos != null) {
 					oos.flush();
 					oos.close();
 				}
 			} catch (final IOException ex) {
-				ex.printStackTrace();
+				return ;
 			}
 		}
 	}
@@ -102,27 +115,44 @@ public class SellingBookWS {
 	public Book[] unserialize(String username) {
 
 		ObjectInputStream ois = null;
-		List<Book> basket = new ArrayList<Book>();
-
-		try {
-			final FileInputStream fichier = new FileInputStream(
+		Book[] basket = null;
+		FileInputStream fichier = null;
+		System.out.println("Ouverture du fichier "+System.getProperty("user.dir") + System.getProperty("file.separator")+
 					"users" + System.getProperty("file.separator") + username);
+		try {
+			 fichier = new FileInputStream( System.getProperty("user.dir") + System.getProperty("file.separator")+
+					"users" + System.getProperty("file.separator") + username);
+			
 			ois = new ObjectInputStream(fichier);
-			basket = (List<Book>) ois.readObject();
-		} catch (final IOException e) {
+			basket = (Book[]) ois.readObject();
+		
+		}catch(Exception e) {
 			e.printStackTrace();
-		} catch (final ClassNotFoundException e) {
-			e.printStackTrace();
+			return null;
+//		} catch (OptionalDataException e) {
+//			System.out.println("io13");
+//			e.printStackTrace();
+//			return null;
+//		
+//		} catch (IOException e) {
+//			return null;
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return null;
 		} finally {
 			try {
+				if(fichier!=null)
+					fichier.close();
 				if (ois != null) {
 					ois.close();
 				}
-			} catch (final IOException ex) {
-				ex.printStackTrace();
+			} catch (final IOException e) {
+				e.printStackTrace();
+				return null;
 			}
 		}
-		return (Book[]) basket.toArray();
+		return basket;
 	}
 }
 
