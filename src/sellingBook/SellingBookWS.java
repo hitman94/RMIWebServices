@@ -23,7 +23,7 @@ import sellingBook.interfaceRMI.ILibraries;
 public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
-		lib = ServerLibraries.getInstance();
+		//lib = ServerLibraries.getInstance();
 
 	}
 	
