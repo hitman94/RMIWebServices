@@ -24,7 +24,6 @@ public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
 		lib = ServerLibraries.getInstance();
-
 	}
 	
 	
@@ -39,26 +38,41 @@ public class SellingBookWS {
 	public Book[] getBooksThatContain(String title) throws RemoteException{
 		List<IBook> books;
 		books = lib.getBooksThatContain(title);
-		return (Book[]) books.toArray();
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			i++;
+		}
+		return toReturn;
 	}
 	
 	
 	public Book getBookByISBN(Long ISBN) throws RemoteException{
-		return (Book) lib.getBook(ISBN);
+		IBook b = lib.getBook(ISBN);
+		return  new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
 	}
 	public Book getBookByTitle(String title) throws RemoteException{
-		return (Book) lib.getBook(title);
+		IBook b = lib.getBook(title);
+		return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
 	}
 	
 	public Book removeBook(Long ISBN) throws RemoteException {
-		return (Book) lib.removeBook(ISBN);
+		IBook b =  lib.removeBook(ISBN);
+		 return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
 	}
 	
 	
 	public Book[] getBooksByAuthor(String author) throws RemoteException{
 		List<IBook> books;
 		books = lib.getBooksByAuthor(author);
-		return (Book[]) books.toArray();
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			i++;
+		}
+		return toReturn;
 	}
 	
 
@@ -70,15 +84,13 @@ public class SellingBookWS {
 	public Book[] getAllBooks() throws RemoteException {
 		List<IBook> books;
 		books = lib.getAllBooks();
-		
-		List<Book> lBook = new ArrayList<Book>();
-		for(IBook b:books)
-			lBook.add(new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle()));
-		
-		Book[] toReturn = new Book[lBook.size()];
-		
-		return lBook.toArray(toReturn);
-		
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			i++;
+		}
+		return toReturn;
 	}
 	
 	public void serialize(String username, Book[] basket) {
