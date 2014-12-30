@@ -13,11 +13,9 @@ public interface ILibraries extends Remote {
 	public IBook getBook(Long ISBN) throws RemoteException;
 	public IBook getBook(String title) throws RemoteException;
 	public List<IBook> getBooksThatContain(String title) throws RemoteException;
-	
-	
 	public IBook removeBook(Long ISBN) throws RemoteException;
 	public List<IBook> getBooksByAuthor(String author) throws RemoteException;
 	public void addBook(IBook book) throws RemoteException;
-	public void addBook(Long isbn,String title,String authour,Double price) throws RemoteException;
+	public void addBook(Long isbn,String title,String authour,Double price,int NbExemplaire) throws RemoteException;
 	public List<IBook> getAllBooks() throws RemoteException;
 }

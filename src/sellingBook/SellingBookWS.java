@@ -31,7 +31,7 @@ public class SellingBookWS {
 	
 	// Methode de test tr�s utile
 	public void test() throws NumberFormatException, RemoteException{
-		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
+		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"),3);
 		IBook b = lib.getBook(new Long("14254414"));
 		System.out.println(b.getAuthor());
 		
@@ -43,7 +43,7 @@ public class SellingBookWS {
 		Book[] toReturn = new Book[books.size()];
 		int i=0;
 		for(IBook b : books){
-			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 			i++;
 		}
 		return toReturn;
@@ -52,16 +52,16 @@ public class SellingBookWS {
 	
 	public Book getBookByISBN(Long ISBN) throws RemoteException{
 		IBook b = lib.getBook(ISBN);
-		return  new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+		return  new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	public Book getBookByTitle(String title) throws RemoteException{
 		IBook b = lib.getBook(title);
-		return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+		return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	
 	public Book removeBook(Long ISBN) throws RemoteException {
 		IBook b =  lib.removeBook(ISBN);
-		 return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+		 return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	
 	
@@ -71,15 +71,15 @@ public class SellingBookWS {
 		Book[] toReturn = new Book[books.size()];
 		int i=0;
 		for(IBook b : books){
-			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 			i++;
 		}
 		return toReturn;
 	}
 	
 
-	public void addBook(Long isbn,String title,String authour,Double price) throws RemoteException {
-		lib.addBook(isbn, title, authour, price);
+	public void addBook(Long isbn,String title,String authour,Double price,Integer NbExemplaire) throws RemoteException {
+		lib.addBook(isbn, title, authour, price,NbExemplaire);
 	}
 	
 	
@@ -89,7 +89,7 @@ public class SellingBookWS {
 		Book[] toReturn = new Book[books.size()];
 		int i=0;
 		for(IBook b : books){
-			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle());
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 			i++;
 		}
 		return toReturn;
