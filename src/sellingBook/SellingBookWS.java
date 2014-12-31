@@ -126,20 +126,15 @@ public class SellingBookWS {
 			ois = new ObjectInputStream(fichier);
 			basket = (Book[]) ois.readObject();
 		
-		}catch(Exception e) {
-			e.printStackTrace();
+		
+		} catch (OptionalDataException e) {
+			
 			return null;
-//		} catch (OptionalDataException e) {
-//			System.out.println("io13");
-//			e.printStackTrace();
-//			return null;
-//		
-//		} catch (IOException e) {
-//			return null;
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return null;
+		
+		} catch (IOException e) {
+			return null;
+		} catch (ClassNotFoundException e) {
+			return null;
 		} finally {
 			try {
 				if(fichier!=null)
