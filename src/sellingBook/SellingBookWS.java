@@ -25,15 +25,14 @@ public class SellingBookWS {
 	public SellingBookWS() throws RemoteException, MalformedURLException {
 
 		lib = ServerLibraries.getInstance();
-
 	}
 	
 	
 	// Methode de test tr�s utile
 	public void test() throws NumberFormatException, RemoteException{
-		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"),3);
-		IBook b = lib.getBook(new Long("14254414"));
-		System.out.println(b.getAuthor());
+		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"),new Integer(3));
+		//IBook b = lib.getBook(new Long("14254414"));
+		System.out.println("lol");
 		
 	}
 
@@ -100,11 +99,18 @@ public class SellingBookWS {
 		ObjectOutputStream oos = null;
 		FileOutputStream fichier = null;
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		for(Book b:basket)
-			System.out.println(b.getTitle());
-		try {
-			File dirUsers = new File("users");
+		
+		File dirUsers = new File("users");
+		if(!dirUsers.exists())
 			dirUsers.mkdir();
+		
+		if(basket==null) {
+			File userbasket = new File(dirUsers +  System.getProperty("file.separator") + username);
+			userbasket.delete();
+		}
+		try {
+			
+			
 			fichier = new FileOutputStream(
 					dirUsers + System.getProperty("file.separator") + username);
 			oos = new ObjectOutputStream(fichier);

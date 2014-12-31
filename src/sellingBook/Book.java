@@ -73,9 +73,9 @@ public class Book implements IBook, Serializable{
 
 
 
-	@Override
-	public int getStock() throws RemoteException {
-		return this.stock;
+	
+	public Integer getStock() throws RemoteException {
+		return stock;
 	}
 
 
