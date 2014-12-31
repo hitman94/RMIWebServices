@@ -1,7 +1,7 @@
 package sellingBook;
 
 import java.io.Serializable;
-
+import java.rmi.RemoteException;
 
 import sellingBook.interfaceRMI.IBook;
 
@@ -16,6 +16,8 @@ public class Book implements IBook, Serializable{
     private java.lang.Double price;
 
     private java.lang.String title;
+    
+    private java.lang.Integer stock;
 	
 
 	public Book() {
@@ -29,11 +31,13 @@ public class Book implements IBook, Serializable{
 	           java.lang.Long ISBN,
 	           java.lang.String author,
 	           java.lang.Double price,
-	           java.lang.String title) {
+	           java.lang.String title,
+	           java.lang.Integer NbExemplaire) {
 	           this.ISBN = ISBN;
 	           this.author = author;
 	           this.price = price;
 	           this.title = title;
+	           this.stock = NbExemplaire;
 	    }
 	
 	public void setPrice(java.lang.Double price) {
@@ -65,6 +69,20 @@ public class Book implements IBook, Serializable{
 	}	
 	public Long getISBN() {
 		return this.ISBN;
+	}
+
+
+
+	@Override
+	public int getStock() throws RemoteException {
+		return this.stock;
+	}
+
+
+
+	@Override
+	public void setStock(java.lang.Integer stock) throws RemoteException {
+		this.stock = stock;
 	}
 
 }

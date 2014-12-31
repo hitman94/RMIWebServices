@@ -23,14 +23,15 @@ import sellingBook.interfaceRMI.ILibraries;
 public class SellingBookWS {
 	private ILibraries lib;
 	public SellingBookWS() throws RemoteException, MalformedURLException {
-		//lib = ServerLibraries.getInstance();
+
+		lib = ServerLibraries.getInstance();
 
 	}
 	
 	
 	// Methode de test tr�s utile
 	public void test() throws NumberFormatException, RemoteException{
-		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"));
+		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"),3);
 		IBook b = lib.getBook(new Long("14254414"));
 		System.out.println(b.getAuthor());
 		
@@ -39,46 +40,59 @@ public class SellingBookWS {
 	public Book[] getBooksThatContain(String title) throws RemoteException{
 		List<IBook> books;
 		books = lib.getBooksThatContain(title);
-		return (Book[]) books.toArray();
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
+			i++;
+		}
+		return toReturn;
 	}
 	
 	
 	public Book getBookByISBN(Long ISBN) throws RemoteException{
-		return (Book) lib.getBook(ISBN);
+		IBook b = lib.getBook(ISBN);
+		return  new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	public Book getBookByTitle(String title) throws RemoteException{
-		return (Book) lib.getBook(title);
+		IBook b = lib.getBook(title);
+		return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	
 	public Book removeBook(Long ISBN) throws RemoteException {
-		return (Book) lib.removeBook(ISBN);
+		IBook b =  lib.removeBook(ISBN);
+		 return new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
 	}
 	
 	
 	public Book[] getBooksByAuthor(String author) throws RemoteException{
 		List<IBook> books;
 		books = lib.getBooksByAuthor(author);
-		return (Book[]) books.toArray();
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
+			i++;
+		}
+		return toReturn;
 	}
 	
 
-	public void addBook(Long isbn,String title,String authour,Double price) throws RemoteException {
-		lib.addBook(isbn, title, authour, price);
+	public void addBook(Long isbn,String title,String authour,Double price,Integer NbExemplaire) throws RemoteException {
+		lib.addBook(isbn, title, authour, price,NbExemplaire);
 	}
 	
 	
 	public Book[] getAllBooks() throws RemoteException {
 		List<IBook> books;
 		books = lib.getAllBooks();
-		
-		List<Book> lBook = new ArrayList<Book>();
-		for(IBook b:books)
-			lBook.add(new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle()));
-		
-		Book[] toReturn = new Book[lBook.size()];
-		
-		return lBook.toArray(toReturn);
-		
+		Book[] toReturn = new Book[books.size()];
+		int i=0;
+		for(IBook b : books){
+			toReturn[i] = new Book(b.getISBN(), b.getAuthor(), b.getPrice(), b.getTitle(), b.getStock());
+			i++;
+		}
+		return toReturn;
 	}
 	
 	public void serialize(String username, Book[] basket) {
