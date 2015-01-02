@@ -31,7 +31,11 @@ public class SellingBookWS {
 	// Methode de test tr�s utile
 	public void test() throws NumberFormatException, RemoteException{
 		lib.addBook(new Long("14254414"), "title", "Florian", new Double("124574"),new Integer(3));
-		//IBook b = lib.getBook(new Long("14254414"));
+		lib.addBook(new Long("1111"), "Tartuffe", "Moliere", new Double("13.99"),new Integer(1));
+		lib.addBook(new Long("12356"), "Hamlett", "Shakespeare", new Double("10.59"),new Integer(10));
+		lib.addBook(new Long("5698"), "Les miserables", "Victor Hugo", new Double("15.79"),new Integer(5));
+		lib.addBook(new Long("458521"), "Mes problemes", "Racine", new Double("14.69"),new Integer(6));
+		lib.addBook(new Long("13655478"), "Mes amies, mes amours mes emmerdes", "Herve villard", new Double("16.69"),new Integer(2));
 		System.out.println("lol");
 		
 	}
