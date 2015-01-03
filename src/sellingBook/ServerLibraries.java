@@ -13,17 +13,15 @@ public class ServerLibraries {
 
 	public static synchronized ILibraries getInstance(){
 		if(instance==null){
-		    System.out.println("Working Directory = " + System.getProperty("user.dir"));
 			System.setProperty("java.security.policy", "sec.policy");
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
-			System.setProperty("java.rmi.server.codebase", "http://localhost:8080/WebServicesProjectRMI/bin/");
+			System.setProperty("java.rmi.server.codebase", "http://localhost:8080/RMIWebServices/bin/");
 			System.setProperty("java.rmi.server.useCodebaseOnly ", "false");
 			try {
 				
 				instance = (ILibraries) Naming.lookup("rmi://localhost/Libraries");
-
 			} catch (MalformedURLException e1) {
 				System.out.println("Malformed url");
 				e1.printStackTrace();
